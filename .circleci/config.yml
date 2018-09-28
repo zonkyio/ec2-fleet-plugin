@@ -1,0 +1,22 @@
+version: 2
+jobs:
+  build:
+
+    docker:
+    - image: circleci/openjdk:8-jdk
+
+    steps:
+
+    - checkout
+
+    - restore_cache:
+        key: ec2-fleet-plugin-{{ checksum "pom.xml" }}
+
+    - run: mvn dependency:go-offline
+
+    - save_cache:
+        paths:
+        - ~/.m2
+        key: ec2-fleet-plugin-{{ checksum "pom.xml" }}
+
+    - run: mvn install
