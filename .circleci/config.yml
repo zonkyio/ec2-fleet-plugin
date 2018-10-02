@@ -20,3 +20,6 @@ jobs:
         key: ec2-fleet-plugin-{{ checksum "pom.xml" }}
 
     - run: mvn install
+
+    - store_artifacts:
+        path: target/ec2-fleet.hpi
